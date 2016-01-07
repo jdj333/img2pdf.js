@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>HTML PDF Generator</title>
+    <style>
+      #pdf-area {
+        border: 1px solid gray;
+        padding:20px;
+        margin:20px 0;
+      }
+    </style>
+  </head>
+  <body>
+
+      <p>The boxed area below will generate a pdf from the image.</p>
+      <div id="pdf-area">
+          <img src="image.jpg" id="myimg" />
+      </div>
+
+      <button onClick="createPdf();">Generate Pdf</button>
+      <script type="text/javascript" src="img2pdf.js"></script>
+      <script type="text/javascript">
+      var elements;
+      (function() {
+       elements = document.getElementById("pdf-area").getElementsByTagName("*");
+      })();
+      function createPdf(){
+        htmlpdfgen(elements);
+      }
+      </script>
+  </body>
+</html>
