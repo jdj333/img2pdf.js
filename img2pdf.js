@@ -107,9 +107,6 @@ function htmlpdfgen(elements) {
 		"<</Type /XObject\r\n" +
 		"/Subtype /Image\r\n";
 
-
-		var stringData = "";
-
 		for (var i = 0; i < elements.length; i++) {
 			tagName = elements[i].tagName;
 			//console.log(tagName);
@@ -123,24 +120,12 @@ function htmlpdfgen(elements) {
 				context.drawImage(img, 0, 0 );
 				var myData = context.getImageData(0, 0, img.width, img.height);
 
-				var width = canvas.width;
-				var height = canvas.height;
-
 				pdfScript +=
-				"/Width "+width+"\r\n" +
-				"/Height "+height+"\r\n" +
+				"/Width "+canvas.width+"\r\n" +
+				"/Height "+canvas.height+"\r\n" +
 				"/ColorSpace /DeviceRGB\r\n" +
 				"/BitsPerComponent 8\r\n" +
 				"/Filter /DCTDecode\r\n";
-
-				console.log("canvas width " + width);
-				console.log("canvas height " + height);
-
-
-				for(var i = 0; i < myData.data.length; i++){
-						stringData += String.fromCharCode(myData.data[i]);
-				}
-				//console.log(stringData);
 
 				function b64_to_utf8( str ) {
 				    str = str.replace(/\s/g, '');
@@ -148,9 +133,7 @@ function htmlpdfgen(elements) {
 				}
 
 				var dataURL = canvas.toDataURL("image/jpeg", 1.0).replace("data:image/jpeg;base64,","");
-				//console.log(dataURL);
 				var utf8ImgData = b64_to_utf8(dataURL);
-				console.log(utf8ImgData);
 
 				pdfScript +=
 				"/Length 30994>>\r\n" +
@@ -158,8 +141,6 @@ function htmlpdfgen(elements) {
 				utf8ImgData +
         "\r\n"
 				;
-				//stringData = stringData.replace("undefined","");
-
 			}
 		}
 
