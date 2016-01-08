@@ -1,5 +1,4 @@
 // Author James Jenkins
-
 function htmlpdfgen(elements) {
 		var pdfData = "data:application/pdf;base64,";
 		var creationDate = new Date();
@@ -109,16 +108,13 @@ function htmlpdfgen(elements) {
 
 		for (var i = 0; i < elements.length; i++) {
 			tagName = elements[i].tagName;
-			//console.log(tagName);
 			if(tagName === "IMG"){
 				var img = elements[i];
 				var canvas = document.createElement('canvas');
 				canvas.width = img.width;
 				canvas.height =  img.height;
 				var context = canvas.getContext('2d');
-
 				context.drawImage(img, 0, 0 );
-				var myData = context.getImageData(0, 0, img.width, img.height);
 
 				pdfScript +=
 				"/Width "+canvas.width+"\r\n" +
@@ -215,10 +211,6 @@ pdfScript +=
 		"37136\r\n" +
 		"%%EOF";
 
-		//console.log(pdfScript);
 		pdfData += btoa(pdfScript);
-		//pdfData += btoa(unescape(encodeURIComponent(pdfScript)));
-		//localStorage.setItem('pdfbase64', pdfData);
 		window.open(pdfData,"_blank");
-
 };
